@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.t_train.qna.mapper.QnaMapper">
+
+	<!-- // 1. 리스트(id와 메소드 이름을 맞춰준다.) -->
+   <select id="list" resultType="com.t_train.qna.vo.QnaVO">
+   		select rnum, no, title, id, name, writeDate, refNo, ordNo, levNo, parentNo
+   		from (
+   			select rownum rnum, no, title, id, name, writeDate, refNo, ordNo, levNo, parentNo
+   			from (
+   				select q.no, q.title, q.id, m.name, q.writeDate, q.refNo, q.ordNo, q.levNo, q.parentNo
+   				from qna q, member m
+   				where (1 = 1)
+   				<include refid="search"/>
+   				and(q.id = m.id)
+   				order by q.refNo desc, q.ordNo
+   			)
+   		)
+   		where rnum between #{startRow} and #{endRow}	
+   </select>
+   <!-- // 1-1. 전체 데이터 개수 -->
+   <select id="getTotalRow" resultType="Long">
+      select count(*) from qna
+      where (1 = 1)
+      <include refid="search" />
+   </select>
+   <!-- 검색 조건 처리를 위한 태그 - 부분 태그 : SQL : 동적쿼리 작성 -->
+   <sql id="search">
+      <if test="word != null and word != ''.toString">
+         and (
+         <if test="key == 't'.toString()">
+				title like '%' || #{word} || '%'
+			</if>
+			<if test="key == 'c'.toString()">
+				content like '%' || #{word} || '%'
+			</if>
+			<if test="key == 'tc'.toString()">
+				title like '%' || #{word} || '%'
+				or content like '%' || #{word} || '%'
+			</if>
+         )
+      </if>
+   </sql>
+
+   
+	<!--  2-1. 보기 -->
+	<select id="view" resultType="com.t_train.qna.vo.QnaVO">
+		select q.no, q.title, q.content, q.id, m.name, q.writeDate, q.refNo, q.ordNo, q.levNo, q.parentNo 
+		from qna q, member m
+		where no = #{no}
+		and (q.id = m.id)
+	</select>
+	
+	<!-- 3. 글쓰기 -->
+	<insert id="write">
+		insert into qna(no, title, content, id, refNo, ordNo, levNo)
+		values(qna_seq.nextval, #{title}, #{content}, #{id}, qna_seq.nextval, 1, 0)
+	</insert>
+	
+	<!--  4. 수정 -->
+	<update id="update">
+		update qna
+		set title = #{title},  content = #{content}
+		where no = #{no}
+	</update>
+	
+	<!-- 5. 삭제 -->
+	<delete id="delete">
+		delete from qna
+		where no = #{no}
+	</delete>
+	
+	<!-- 6. 답변하기 순서번호 1 증가 -->
+	<update id="increaseOrdNo">
+		update qna 
+		set ordNo = ordNo + 1 
+		where refNo = #{refNo} and ordNo >= #{ordNo}
+	</update>
+	
+	<!-- 7. 답변하기 -->
+	<insert id="answer">
+		insert into qna(no, title, content, id, refNo, ordNo, levNo, parentNo)
+		values(qna_seq.nextval, #{title},#{content},#{id},#{refNo},#{ordNo},#{levNo},#{parentNo})
+	</insert>
+</mapper>
