@@ -4,12 +4,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.t_train.train.service.TrainService;
+import com.t_train.train.vo.TrainVO;
 
 @Controller
 public class T_trainController {
@@ -25,7 +27,10 @@ public class T_trainController {
 	}
 	
 	@PostMapping("/train/write.do")
-	public String search() throws Exception {
+	public String search(Model model) throws Exception {
+		
+		TrainVO vo = new TrainVO();
+		model.addAttribute("vo", vo);
 		
 		return "redirect:list.do";
 	}

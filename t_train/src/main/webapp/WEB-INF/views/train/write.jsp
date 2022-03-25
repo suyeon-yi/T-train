@@ -104,7 +104,7 @@ $( function() {
 			id="writeForm">
 			<div class="form-field col-lg-6">
 				<input id="startDay" name="startDay" class="input-text js-input datepicker"
-					type="text" required> <label class="label" for="startDay">출발일</label>
+					type="text" autocomplete="off" required> <label class="label" for="startDay">출발일</label>
 			</div>
 			<div class="form-field col-lg-6">
 				<select name="startHour" id="startHour" title="출발시간의 시"
