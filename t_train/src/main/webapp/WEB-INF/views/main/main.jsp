@@ -150,6 +150,7 @@ h1 {
 </div>
 <div class="btns">
 <c:if test="${!empty login }">
+<button class='btns_more' onclick="location.href='/train/write.do'"> Train </button>
 <button class='btns_more' onclick="location.href='/notice/list.do'"> Notice </button>
 <button class='btns_more' onclick="location.href='/qna/list.do'"> QnA </button>
 </c:if>
