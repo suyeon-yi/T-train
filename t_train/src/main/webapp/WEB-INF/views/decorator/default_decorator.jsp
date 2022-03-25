@@ -160,7 +160,7 @@ article {
 				</div>
 				<div class="collapse navbar-collapse" id="myNavbar" style="padding: 15px;">
 					<ul class="nav navbar-nav">
-						<li><a href="/train/list.do">기차예매</a></li>
+						<li><a href="/train/write.do">기차예매</a></li>
 						<li><a href="/notice/list.do">공지사항</a></li>
 						<li><a href="/qna/list.do">고객소리함</a></li>
 						<% if(loginVO != null && loginVO.getGradeNo() == 9) { %>
