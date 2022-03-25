@@ -42,5 +42,12 @@
 	<!-- AOP 설정 -->
 	<aop:aspectj-autoproxy></aop:aspectj-autoproxy>
 
+	<interceptors>
+		<interceptor>
+			<mapping path="/**"/>
+			<beans:bean class="com.t_train.util.intercepter.AuthrityIntercepter"/>
+		</interceptor>
+	</interceptors>
+	
 
 </beans:beans>

@@ -41,9 +41,11 @@
 <!-- 검색에 대한 div -->
 <div style="margin-bottom: 5px; margin-top: 10px;">
 <a href="list.do?page=${pageObject.page }&perPageNum=${pageObject.perPageNum }&key=${pageObject.key }&woard=${pageObject.word }&period=pre" class='btn btn-${(pageObject.period=="pre")?"primary":"default"}'>현재</a>
+<c:if test="${login.gradeNo == 9 && empty param.id}">
 <a href="list.do?page=${pageObject.page }&perPageNum=${pageObject.perPageNum }&key=${pageObject.key }&woard=${pageObject.word }&period=old" class='btn btn-${(pageObject.period=="old")?"primary":"default"}'>지난</a>
 <a href="list.do?page=${pageObject.page }&perPageNum=${pageObject.perPageNum }&key=${pageObject.key }&woard=${pageObject.word }&period=res" class='btn btn-${(pageObject.period=="res")?"primary":"default"}'>예약</a>
 <a href="list.do?page=${pageObject.page }&perPageNum=${pageObject.perPageNum }&key=${pageObject.key }&woard=${pageObject.word }&period=all" class='btn btn-${(pageObject.period=="all")?"primary":"default"}'>전체</a>
+</c:if>
 </div>
 <div class="row" style="margin-bottom: 5px;">
 	<!-- 검색에 대한 div -->
@@ -108,9 +110,11 @@
 		</td>
 	</tr>
 	<tr>
+	<c:if test="${login.gradeNo == 9 && !empty param.id}">
 		<td colspan="5">
 			<a href="write.do?perPageNum=${pageObject.perPageNum }" class="btn btn-default">쓰기</a>
 		</td>
+		</c:if>
 	</tr>
 </table>
 </div>

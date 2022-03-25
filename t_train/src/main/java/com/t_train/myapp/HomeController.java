@@ -35,5 +35,17 @@ public class HomeController {
 		
 		return "home";
 	}
+	@RequestMapping("/auth_error.do")
+	public String error(Locale locale, Model model) {
+		
+		Date date = new Date();
+		DateFormat dateFormat = DateFormat.getDateTimeInstance(DateFormat.LONG, DateFormat.LONG, locale);
+		
+		String formattedDate = dateFormat.format(date);
+		
+		model.addAttribute("serverTime", formattedDate );
+		
+		return "auth_error";
+	}
 	
 }

@@ -28,10 +28,15 @@
 		</tr>
 		<tr>
 		<td colspan="2">
+			<c:if test="${login.gradeNo == 9 && empty param.id}">
 			<a href="answer.do?no=${vo.no }&refNo=${vo.no }&parentNo=${vo.no }&page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default">답변등록</a>
+			</c:if>
+			<c:if test="${login.id == vo.id }">
 			<a href="update.do?no=${vo.no }&page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default">수정</a>
 			<a href="delete.do?no=${vo.no }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default" id="deleteBtn">삭제</a>
+			</c:if>
 			<a href="list.do?page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default">리스트</a>
+			
 		</td>
 	</tr>		
 	</table>

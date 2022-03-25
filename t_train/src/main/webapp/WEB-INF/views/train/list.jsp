@@ -15,7 +15,7 @@ var url = 'http://apis.data.go.kr/1613000/TrainInfoService/getStrtpntAlocFndTrai
 var queryParams = '?' + encodeURIComponent('serviceKey') + '='+'Jxwqcdkk560ifanyQyzs7RdyYjABCow9oOnsYt%2FaIgqOOdfpS615bY%2B4AvnnC5l7qtPQERSgw30wZtL6%2FP%2Fm%2BA%3D%3D'; /*Service Key*/
 queryParams += '&' + encodeURIComponent('pageNo') + '=' + encodeURIComponent('1'); /**/
 queryParams += '&' + encodeURIComponent('numOfRows') + '=' + encodeURIComponent('10'); /**/
-queryParams += '&' + encodeURIComponent('_type') + '=' + encodeURIComponent('xml'); /**/
+queryParams += '&' + encodeURIComponent('_type') + '=' + encodeURIComponent('json'); /**/
 queryParams += '&' + encodeURIComponent('depPlaceId') + '=' + encodeURIComponent('NAT010000'); /**/
 queryParams += '&' + encodeURIComponent('arrPlaceId') + '=' + encodeURIComponent('NAT011668'); /**/
 queryParams += '&' + encodeURIComponent('depPlandTime') + '=' + encodeURIComponent('20211201'); /**/
@@ -29,5 +29,6 @@ xhr.onreadystatechange = function () {
 
 xhr.send('');
 </script>
+
 </body>
 </html>
