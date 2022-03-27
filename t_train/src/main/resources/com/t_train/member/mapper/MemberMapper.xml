@@ -71,12 +71,14 @@
 		where id = #{id} and pw = #{pw}
 	</delete>
 	
-	<!-- 6. 로그인 처리 -->
+	<!-- 6-1. 로그인 처리 -->
 	<select id="login" resultType="com.t_train.member.vo.LoginVO">
 		select m.id, m.name, m.gradeNo, g.gradeName
 		from member m, grade g
 		where (m.id = #{id} and m.pw = #{pw}) and (g.gradeNo = m.gradeNo)
 	</select>
+	
+	
 	
 	<!-- 7. 아이디 중복 체크 -->
 	<select id="idCheck" resultType="java.lang.String">

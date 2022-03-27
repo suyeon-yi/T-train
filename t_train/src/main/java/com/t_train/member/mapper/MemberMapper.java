@@ -28,4 +28,7 @@ public interface MemberMapper {
 			public int changeStatus(MemberVO vo)throws Exception;
 			//8.등급 변경
 			public int changeGradeNo(MemberVO vo)throws Exception;
+			//9. 카카오 로그인 저장소
+			public void save(MemberVO vo)throws Exception;
+			
 }

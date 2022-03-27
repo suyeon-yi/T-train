@@ -6,7 +6,8 @@
 <meta charset="UTF-8">
   <!-- Design by foolishdeveloper.com -->
     <title>로그인</title>
- 
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<meta name="viewport" content="width=device-width,initial-scale=1">
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
@@ -112,28 +113,6 @@ button{
     border-radius: 5px;
     cursor: pointer;
 }
-.social{
-  margin-top: 30px;
-  display: flex;
-}
-.social div{
-  background: red;
-  width: 150px;
-  border-radius: 3px;
-  padding: 5px 10px 10px 5px;
-  background-color: rgba(255,255,255,0.27);
-  color: #eaf0fb;
-  text-align: center;
-}
-.social div:hover{
-  background-color: rgba(255,255,255,0.47);
-}
-.social .fb{
-  margin-left: 25px;
-}
-.social i{
-  margin-right: 4px;
-}
 
     </style>
 </head>
@@ -152,6 +131,12 @@ button{
         <input type="password" placeholder="Password" id="pw" name="pw" required="required">
 
         <button>Log In</button>
+        <a href="https://kauth.kakao.com/oauth/authorize?client_id=97c2367bbc81f42c21b6abfadebd584e&redirect_uri=http://localhost/member/callback.do&response_type=code&">
+			<img
+			    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
+			    width="222" style="margin-top: 10px;"
+			    alt="카카오 로그인 버튼"/>
+		</a>
     </form>
 </body>
 </html>

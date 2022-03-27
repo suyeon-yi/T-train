@@ -1,5 +1,7 @@
 package com.t_train.member.vo;
 
+import java.util.Date;
+
 import lombok.Data;
 
 @Data

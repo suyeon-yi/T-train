@@ -1,20 +1,36 @@
 package com.t_train.member.controller;
 
 
+
+import java.io.IOException;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.t_train.member.mapper.MemberMapper;
 import com.t_train.member.service.MemberService;
+import com.t_train.member.vo.KakaoProfile;
 import com.t_train.member.vo.LoginVO;
 import com.t_train.member.vo.MemberVO;
+import com.t_train.member.vo.OAuthToken;
 import com.webjjang.util.PageObject;
 
 import lombok.extern.log4j.Log4j;
@@ -34,6 +50,7 @@ public class MemberController {
 		return "member/login";
 	}
 	
+
 	//로그인 처리
 	@PostMapping("/login.do")
 	public String login(LoginVO invo, HttpSession session) throws Exception  {
@@ -44,6 +61,96 @@ public class MemberController {
 		
 		return "redirect:/main/main.do";
 	}
+	
+	@GetMapping("/callback.do") //redirect_uri : http://localhost/member/callback.do
+	public @ResponseBody String kakaoCakkback(String code) throws IOException { //@ResponseBody : Data를 리턴해주는 컨트롤러 함수
+        //POST방식으로 key-value 데이터를 요청(카카오쪽으로)
+        RestTemplate rt = new RestTemplate(); //http 요청을 간단하게 해줄 수 있는 클래스
+
+        //HttpHeader 오브젝트 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+        //HttpBody 오브젝트 생성
+        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
+        params.add("grant_type","authorization_code");
+        params.add("client_id","97c2367bbc81f42c21b6abfadebd584e");
+        params.add("redirect_uri","http://localhost/member/callback.do");
+        params.add("code", code);
+        params.add("client_secret", "oShirzY2M6Jv1fZRXdjuTprmDZfTE8hy");
+
+        //HttpHeader와 HttpBody를 하나의 오브젝트에 담기
+        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
+                new HttpEntity<>(params, headers);
+
+        //실제로 요청하기
+        //Http 요청하기 - POST 방식으로 - 그리고 response 변수의 응답을 받음.
+        ResponseEntity<String> response = rt.exchange(
+                "https://kauth.kakao.com/oauth/token",
+                HttpMethod.POST,
+                kakaoTokenRequest,
+                String.class
+        );
+
+
+        //Gson Library, JSON SIMPLE LIBRARY, OBJECT MAPPER(Check)
+        ObjectMapper objectMapper = new ObjectMapper();
+        OAuthToken oauthToken =null;
+        //Model과 다르게 되있으면 그리고 getter setter가 없으면 오류가 날 것이다.
+        try {
+            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }
+		
+		return "code";
+		
+	}
+
+	public void getProfile(OAuthToken oauthToken, MemberMapper memberMapper) throws Exception{
+        RestTemplate rt = new RestTemplate(); //http 요청을 간단하게 해줄 수 있는 클래스
+
+        //HttpHeader 오브젝트 생성
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Authorization", "Bearer "+ oauthToken.getAccess_token());
+        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
+
+
+        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
+                new HttpEntity<>(headers);
+
+        //실제로 요청하기
+        //Http 요청하기 - POST 방식으로 - 그리고 response 변수의 응답을 받음.
+        ResponseEntity<String> response = rt.exchange(
+                "https://kapi.kakao.com/v2/user/me",
+                HttpMethod.POST,
+                kakaoProfileRequest,
+                String.class
+        );
+
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        KakaoProfile profile  =null;
+        //Model과 다르게 되있으면 그리고 getter setter가 없으면 오류가 날 것이다.
+        try {
+            profile = objectMapper.readValue(response.getBody(), KakaoProfile.class);
+        } catch (JsonProcessingException e) {
+            e.printStackTrace();
+        }catch (Exception e) {
+			// TODO: handle exception
+		}
+
+        //username, password, email
+        MemberVO vo = new MemberVO();
+        vo.setName(profile.getProperties().getNickname());
+        vo.setEmail(profile.getKakao_account().getEmail());
+
+        memberMapper.save(vo);
+        
+
+    }
+
+	
 	
 	//로그아웃 처리
 	@GetMapping("/logout.do")
