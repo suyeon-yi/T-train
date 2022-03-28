@@ -36,6 +36,9 @@ public class AuthrityIntercepter extends HandlerInterceptorAdapter {
 		authMap.put("/notice/update.do", 9);
 		authMap.put("/notice/delete.do", 9);
 
+// 회원관리 - 목록 - 관리자 :9
+		authMap.put("/member/list.do", 9);
+		
 // 질문답변 - 보기, 질문하기, 답변하기, 수정, 삭제 : 1 --> 일반회원도 답변이 가능한 시스템
 
 // authMap.put("/qna/list.do", 1);

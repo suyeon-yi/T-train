@@ -19,7 +19,6 @@ public class LogAdvice {
 	//AOP로 실행될 메소드 작성
 	@Around("execution(* com.t_train.*.service.*.*(..))")
 	public Object logTimeAndInfo(ProceedingJoinPoint pjp) throws Throwable {
-		
 		log.info("<<<=========== 실행 속도와 처리 정보를 출력하는 AOP ===========>>>");
 		// 실행 전 처리
 		// 시작 시간 저장 / 실행 클래스 출력 / 넘어가는 데이터 출력 / 실행 결과 출력

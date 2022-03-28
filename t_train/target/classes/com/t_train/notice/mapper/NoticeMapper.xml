@@ -7,7 +7,7 @@
    <select id="list" resultType="com.t_train.notice.vo.NoticeVO">
       select  no, title, startDate, endDate, updateDate
       from (
-      select rownum rnum,  no, title, startDate, endDate, updateDate
+      select rownum rnum, no, title, startDate, endDate, updateDate
       from(
       select no, title, startDate, endDate, updateDate
       from notice

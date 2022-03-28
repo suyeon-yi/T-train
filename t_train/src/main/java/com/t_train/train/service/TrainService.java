@@ -1,13 +1,14 @@
 package com.t_train.train.service;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.List;
 
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
+import javax.inject.Inject;
+
 import org.springframework.stereotype.Service;
+
+import com.t_train.train.mapper.TrainMapper;
+import com.t_train.train.vo.TrainVO;
+import com.webjjang.util.PageObject;
 
 import lombok.extern.log4j.Log4j;
 
@@ -15,55 +16,39 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 public class TrainService {
 
-	//공공 데이터 REST API 요청 
-	public String xml_list(StringBuilder url) throws Exception {
-		String result = url.toString();
-		
-		try {
-				HttpURLConnection con = (HttpURLConnection)new URL(result).openConnection();
-				con.setRequestMethod("GET");
-				con.setRequestProperty("content-type", "application/json");
-				BufferedReader rd;
-			if(con.getResponseCode() >= 200 && con.getResponseCode() <= 300) {
-				rd = new BufferedReader(new InputStreamReader(con.getInputStream(), "utf-8"));
-			}else {
-				rd = new BufferedReader(new InputStreamReader(con.getErrorStream(), "utf-8"));
-			}
-		StringBuilder sb = new StringBuilder();
-		String line;
-		while((line = rd.readLine()) != null) {
-			sb.append(line);
-		}
-		rd.close();
-		con.disconnect();
-				result = sb.toString();
-				log.info("result : " + result);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-			log.info(e.getMessage());
-		}
-		return result;
+	@Inject
+	private TrainMapper mapper;
+	
+	//1. list
+	public List<TrainVO> list(PageObject pageObject) throws Exception{
+		pageObject.setTotalRow(mapper.getTotalRow(pageObject));
+		log.info("TrainService.list().pageObject : " + pageObject);
+		return mapper.list(pageObject);
 	}
 	
-	//JSON
-	public String json_list(StringBuilder url) throws Exception {
-		JSONObject json = null;
-		
-		try {
-			json = (JSONObject) new JSONParser().parse(xml_list(url));
-			json = (JSONObject) json.get("response");
-			json = (JSONObject) json.get("body");
-			int count = json.get("totalCount") == null ? 0 : Integer.parseInt(json.get("totalCount").toString());
-			
-			if(json.get("items") instanceof JSONObject) {
-				json = (JSONObject) json.get("items");
-			}
-			json.put("count", count);
-		} catch (Exception e) {
-			// TODO: handle exception
-			e.printStackTrace();
-		}
-		return json.toJSONString();
+	//2. view
+	public TrainVO view(long no) throws Exception{
+		log.info("TrainService.view().no : " + no);
+		return mapper.view(no);
 	}
+	
+	//3. write
+	public int write(TrainVO vo) throws Exception {
+		log.info("TrainService.write().vo : " + vo);
+		return mapper.write(vo);
+	}
+	
+	//4. update
+	public int update(TrainVO vo) throws Exception {
+		log.info("TrainService.write().vo : " + vo);
+		return mapper.update(vo);
+	}
+	
+	//5. delete
+	public int delete(long no) throws Exception {
+		log.info("TrainService.delete().no : " + no);
+		return mapper.delete(no);
+	}
+	
+	
 }

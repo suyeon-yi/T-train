@@ -110,7 +110,7 @@
 		</td>
 	</tr>
 	<tr>
-	<c:if test="${login.gradeNo == 9 && !empty param.id}">
+	<c:if test="${login.gradeNo == 9 }">
 		<td colspan="5">
 			<a href="write.do?perPageNum=${pageObject.perPageNum }" class="btn btn-default">쓰기</a>
 		</td>

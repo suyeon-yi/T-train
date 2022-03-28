@@ -32,6 +32,7 @@ public class MemberController {
 	private MemberService service;
 	private SnsValue naverSns;
 	
+	
 	//로그인 폼
 	@GetMapping("/login.do")
 	public String loginForm() throws Exception {

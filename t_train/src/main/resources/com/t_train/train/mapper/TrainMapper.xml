@@ -3,52 +3,66 @@
 
 <mapper namespace="com.t_train.train.mapper.TrainMapper">
 
-	<!-- // 1. 리스트(id와 메소드 이름을 맞춰준다.) -->
-   <select id="list" resultType="com.t_train.train.vo.TrainVO">
-   		select rnum, no, title, id, name, writeDate, refNo, ordNo, levNo, parentNo
-   		from (
-   			select rownum rnum, no, title, id, name, writeDate, refNo, ordNo, levNo, parentNo
-   			from (
-   				select resultCode, resultMsg, numOfRows, pageNo, totalCount, 
-   				traingradename, depplandtime, arrplandtime, depplacename, arrplacename, adultcharge, trainno 
-   				from 
-   				where (1 = 1)
-   				<include refid="search"/>
-   				and(q.id = m.id)
-   				order by q.refNo desc, q.ordNo
-   			)
-   		)
-   		where rnum between #{startRow} and #{endRow}	
-   </select>
-   <!-- // 1-1. 전체 데이터 개수 -->
-   <select id="getTotalRow" resultType="Long">
-      select count(*) from train
-      where (1 = 1)
-      <include refid="search" />
-   </select>
-   <!-- 검색 조건 처리를 위한 태그 - 부분 태그 : SQL : 동적쿼리 작성 -->
-   <sql id="search">
-      <if test="word != null and word != ''.toString">
-         and (
-         <if test="key == 't'.toString()">
-				title like '%' || #{word} || '%'
-			</if>
-			<if test="key == 'c'.toString()">
-				content like '%' || #{word} || '%'
-			</if>
-			<if test="key == 'tc'.toString()">
-				title like '%' || #{word} || '%'
-				or content like '%' || #{word} || '%'
-			</if>
-         )
-      </if>
-   </sql>
+	<!-- 1-1. list -->
+	<select id="list" resultType="com.t_train.train.vo.TrainVO">
+		select no, traingradename , depplacename, arrplacename,depplandtime, arrplandtime
+		from (
+			select rownum rnum, no, traingradename , depplacename, arrplacename,depplandtime, arrplandtime
+			from (
+				select no, traingradename , depplacename, arrplacename,depplandtime, arrplandtime
+				from train
+				<include refid="search" />
+			    order by no desc
+			)
+		)
+		where rnum between #{startRow} and #{endRow}
+	</select>
+	
+	<!-- // 1-1. 전체 데이터 개수 -->
+	<select id="getTotalRow" resultType="Long">
+      select count(*) from notice
 
-   
-	<!-- 2. 글쓰기 -->
+      <include refid="search" />
+    </select>
+	
+	<!-- 검색 조건 처리를 위한 태그 - 부분 태그 : SQL : 동적쿼리 작성 -->
+    <sql id="search">
+      <if test="word != null and word != ''.toString">
+         where
+         <if test="key == 'd'.toString()">
+            depplacename like '%' || #{word} || '%'
+         </if>
+         <if test="key == 'a'.toString()">
+            arrplacename like '%' || #{word} || '%'
+         </if>
+      </if>
+    </sql>
+    
+    
+    <!--  2-1. 보기 -->
+	<select id="view" resultType="com.t_train.train.vo.TrainVO">
+		select no, traingradename , depplacename, arrplacename, adultcharge, depplandtime, arrplandtime
+		from train 
+		where no = #{no}
+	</select>
+	
+	<!-- 3. 글쓰기 -->
 	<insert id="write">
-		insert into qna(no, title, content, id, refNo, ordNo, levNo)
-		values(qna_seq.nextval, #{title}, #{content}, #{id}, qna_seq.nextval, 1, 0)
+		insert into train(no, traingradename , depplacename, arrplacename, adultcharge, depplandtime, arrplandtime)
+		values(train_seq.nextval, #{traingradename} , #{depplacename}, #{arrplacename}, #{adultcharge}, #{depplandtime}, #{arrplandtime})
 	</insert>
 	
+	<!--  4. 수정 -->
+	<update id="update">
+		update train
+		set traingradename = #{traingradename} , depplacename = #{depplacename}, arrplacename = #{arrplacename} , 
+		adultcharge = #{adultcharge}, depplandtime = #{depplandtime}, arrplandtime = #{arrplandtime}
+		where no = #{no}
+	</update>
+	
+	<!-- 5. 삭제 -->
+	<delete id="delete">
+		delete from train
+		where no = #{no}
+	</delete>
 </mapper>
