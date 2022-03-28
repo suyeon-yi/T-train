@@ -69,5 +69,21 @@ public class MemberService {
 	public int changeGradeNo(MemberVO vo) throws Exception {
 		return mapper.changeGradeNo(vo);
 	}
+
+	public static int snsLoginCheck(String naverid) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public static void snsRegister(String naverid, String name, String gender, String email) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public MemberVO snsLogin(String naverid) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

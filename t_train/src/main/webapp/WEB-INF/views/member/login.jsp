@@ -1,3 +1,6 @@
+<%@page import="java.security.SecureRandom"%>
+<%@page import="java.math.BigInteger"%>
+<%@page import="java.net.URLEncoder"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -131,12 +134,14 @@ button{
         <input type="password" placeholder="Password" id="pw" name="pw" required="required">
 
         <button>Log In</button>
-        <a href="https://kauth.kakao.com/oauth/authorize?client_id=97c2367bbc81f42c21b6abfadebd584e&redirect_uri=http://localhost/member/callback.do&response_type=code&">
-			<img
-			    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg"
-			    width="222" style="margin-top: 10px;"
-			    alt="카카오 로그인 버튼"/>
-		</a>
+  <a href="naverLogin.do"><img height="50" style="margin-top: 10px;" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+        
+<!--         <a href="https://kauth.kakao.com/oauth/authorize?client_id=97c2367bbc81f42c21b6abfadebd584e&redirect_uri=http://localhost/member/callback.do&response_type=code&"> -->
+<!-- 			<img -->
+<!-- 			    src="//k.kakaocdn.net/14/dn/btroDszwNrM/I6efHub1SN5KCJqLm1Ovx1/o.jpg" -->
+<!-- 			    width="222" style="margin-top: 10px;" -->
+<!-- 			    alt="카카오 로그인 버튼"/> -->
+<!-- 		</a> -->
     </form>
 </body>
 </html>

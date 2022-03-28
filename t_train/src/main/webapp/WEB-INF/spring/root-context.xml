@@ -32,6 +32,24 @@
 	<!-- mybatis 관련 객체 생성 기본 패키지 -->
 	<mybatis-spring:scan base-package="com.t_train"/>
 	
+	<!-- 네이버 로그인 -->
+	<bean id="naverClientID" class="java.lang.String">
+	        <constructor-arg value="fR__ozilA6dnzf6k1p6B" />
+	</bean>
+	<bean id="naverClientSecret" class="java.lang.String">
+	        <constructor-arg value="3Hp0nCjGLt" />
+	</bean>
+	<bean id="naverRedirectUrl" class="java.lang.String">
+	        <constructor-arg value="http://localhost/member/callback.do" />
+	</bean>
+	    
+	<bean id="naverSns" class="com.t_train.member.naver.SnsValue">
+	        <constructor-arg value="naver" />
+	        <constructor-arg ref="naverClientID" />
+	        <constructor-arg ref="naverClientSecret" />
+	        <constructor-arg ref="naverRedirectUrl" />
+	</bean>
+
 	<!-- Root Context: defines shared resources visible to all other web components -->
 	<!-- [@Controller], @Service, @Repository, @Component, [@RestController] - 자동생성하지 위해서 찾는 위치를 지정한다. 위치와 아래 위치를 다 찾아서 생성과 DI를 해준다. -->
 	<!-- URL과 상관이 없는 객체 -->

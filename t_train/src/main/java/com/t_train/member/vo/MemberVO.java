@@ -22,5 +22,7 @@ public class MemberVO {
 	private String status;
 	private long gradeNo;
 	private String gradeName;
+	private String naverid;
+	private String navername;
 	
 }
