@@ -134,7 +134,7 @@ button{
         <input type="password" placeholder="Password" id="pw" name="pw" required="required">
 
         <button>Log In</button>
-  <a href="naverLogin.do"><img height="50" style="margin-top: 10px;" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a>
+<!--   <a href="naverLogin.do"><img height="50" style="margin-top: 10px;" src="http://static.nid.naver.com/oauth/small_g_in.PNG"/></a> -->
         
 <!--         <a href="https://kauth.kakao.com/oauth/authorize?client_id=97c2367bbc81f42c21b6abfadebd584e&redirect_uri=http://localhost/member/callback.do&response_type=code&"> -->
 <!-- 			<img -->

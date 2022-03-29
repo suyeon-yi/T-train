@@ -47,11 +47,11 @@
 	</div>
 	<div class="form-group">
 		<label>출발시간</label>
-		<input name="depplandtime" id="depplandtime" class="form-control" required="required" autocomplete="off" placeholder="HH:mm" >
+		<input name="depplandtime" id="depplandtime" class="form-control" required="required" autocomplete="off" placeholder="예) 05시 05분" >
 	</div>
 	<div class="form-group">
 		<label>도착시간</label>
-		<input name="arrplandtime" id="arrplandtime" class="form-control" required="required" autocomplete="off" placeholder="HH:mm" >
+		<input name="arrplandtime" id="arrplandtime" class="form-control" required="required" autocomplete="off" placeholder="예) 05시 05분" >
 	</div>
 <button class="btn btn-default">등록</button>	
 <button type="reset" class="btn btn-default">새로입력</button>	

@@ -1,8 +1,5 @@
 package com.t_train.train.vo;
 
-import java.sql.Date;
-
-import org.springframework.format.annotation.DateTimeFormat;
 
 import lombok.Data;
 
@@ -14,9 +11,7 @@ public class TrainVO {
 	private String depplacename;
 	private String arrplacename;
 	private long adultcharge;
-	@DateTimeFormat(pattern = "HH24:mm")
-	private Date depplandtime;
-	@DateTimeFormat(pattern = "HH24:mm")
-	private Date arrplandtime;
+	private String depplandtime;
+	private String arrplandtime;
 	
 }

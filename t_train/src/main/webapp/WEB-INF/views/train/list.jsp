@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  
 <%@ taglib prefix="pageNav" tagdir="/WEB-INF/tags" %>
 <!DOCTYPE html>
 <html>
@@ -85,9 +84,9 @@
 			<td class="no">${vo.no }</td>
 			<td>${vo.traingradename }</td>
 			<td>${vo.depplacename }</td>
-			<td><fmt:formatDate value="${vo.depplandtime }" pattern="HH:mm" /></td>
+			<td>${vo.depplandtime }</td>
 			<td>${vo.arrplacename }</td>
-			<td><fmt:formatDate value="${vo.arrplandtime }" pattern="HH:mm" /></td>
+			<td>${vo.arrplandtime }</td>
 		</tr>
 	</c:forEach>
 <tr>

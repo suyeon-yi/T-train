@@ -30,7 +30,7 @@
 	</div>
 <button class="btn btn-default">등록</button>	
 <button type="reset" class="btn btn-default">새로입력</button>	
-<button type="button" id="cancelBtn" class="btn btn-default">취소</button>	
+<button type="button" id="cancelBtn" onclick="history.back()" class="btn btn-default">취소</button>	
 </form>
 </div>
 </body>

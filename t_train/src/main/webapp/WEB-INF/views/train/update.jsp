@@ -52,11 +52,11 @@
 	</div>
 	<div class="form-group">
 		<label>출발시간</label>
-		<input name="depplandtime" id="depplandtime" class="form-control" required="required" autocomplete="off" placeholder="HH:mm" value="<fmt:formatDate value="${vo.depplandtime }" pattern="HH:mm" />">
+		<input name="depplandtime" id="depplandtime" class="form-control" required="required" autocomplete="off" value="${vo.depplandtime }"/>
 	</div>
 	<div class="form-group">
 		<label>도착시간</label>
-		<input name="arrplandtime" id="arrplandtime" class="form-control" required="required" autocomplete="off" placeholder="HH:mm" value="<fmt:formatDate value="${vo.arrplandtime }" pattern="HH:mm" />">
+		<input name="arrplandtime" id="arrplandtime" class="form-control" required="required" autocomplete="off"  value="${vo.arrplandtime }" />">
 	</div>
 <button class="btn btn-default">수정</button>	
 <button type="reset" class="btn btn-default">새로입력</button>	

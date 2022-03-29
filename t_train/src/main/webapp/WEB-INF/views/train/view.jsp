@@ -29,11 +29,11 @@
 		</tr>
 		<tr>
 			<th>출발시간</th>
-			<td><fmt:formatDate value="${vo.depplandtime }" pattern="HH:mm" /></td>
+			<td>${vo.depplandtime }</td>
 		</tr>
 		<tr>
 			<th>도착시간</th>
-			<td><fmt:formatDate value="${vo.arrplandtime }" pattern="HH:mm" /></td>
+			<td>${vo.arrplandtime }</td>
 		</tr>
 		<tr>
 		<td colspan="2">

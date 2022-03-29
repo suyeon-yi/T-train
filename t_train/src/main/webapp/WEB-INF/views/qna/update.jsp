@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="page-header" style="text-align: center;">
-    <h1>고객 소리함 - 질문 수정</h1>      
+    <h1>고객 소리함 - 질문/답변 수정</h1>      
   <p>사이트 관리자에게 이용에 관한 궁금점을 남겨주시면 빠른 시일 내에 답변 드리겠습니다.</p>
 </div>
 <div class="container">
@@ -38,7 +38,7 @@
 	</div>
 <button class="btn btn-default">수정</button>	
 <button type="reset" class="btn btn-default">새로입력</button>	
-<button type="button" id="cancelBtn" class="btn btn-default">취소</button>
+<button type="button" id="cancelBtn" class="btn btn-default" onclick="history.back()">취소</button>
 </form>
 </div>
 </body>

@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import com.t_train.member.naver.SNSLogin;
-import com.t_train.member.naver.SnsValue;
 import com.t_train.member.service.MemberService;
 import com.t_train.member.vo.LoginVO;
 import com.t_train.member.vo.MemberVO;
@@ -30,7 +28,6 @@ public class MemberController {
 
 	@Autowired
 	private MemberService service;
-	private SnsValue naverSns;
 	
 	
 	//로그인 폼
@@ -51,115 +48,6 @@ public class MemberController {
 		
 		return "redirect:/main/main.do";
 	}
-	
-	//네이버 로그인 처리
-	@RequestMapping(value="/naverLogin.do", method = {RequestMethod.GET, RequestMethod.POST})
-	public String snsLoginCallback(HttpSession session,Model model,@RequestParam(required=false) String code)throws Exception{
-		log.info("naverLogin");
-		SnsValue sns = naverSns;
-		
-		
-		SNSLogin snsLogin = new SNSLogin(sns);
-		MemberVO snsUser = snsLogin.getUserProfile(code);
-		log.info("Profile="+snsUser.getNaverid());
-		
-		if(MemberService.snsLoginCheck(snsUser.getNaverid()) == 0) {
-		MemberService.snsRegister(snsUser.getNaverid(), snsUser.getName(), snsUser.getGender(), snsUser.getEmail());
-		}
-		MemberVO memberVO = service.snsLogin(snsUser.getNaverid());
-		session.setAttribute("login", memberVO);
-		return "redirect:/main/main.do";
-	}
-	
-	//카카오 로그인 처리
-//	@GetMapping("/callback.do") //redirect_uri : http://localhost/member/callback.do
-//	public @ResponseBody String kakaoCakkback(String code) throws IOException { //@ResponseBody : Data를 리턴해주는 컨트롤러 함수
-//        //POST방식으로 key-value 데이터를 요청(카카오쪽으로)
-//        RestTemplate rt = new RestTemplate(); //http 요청을 간단하게 해줄 수 있는 클래스
-//
-//        //HttpHeader 오브젝트 생성
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//
-//        //HttpBody 오브젝트 생성
-//        MultiValueMap<String, String> params = new LinkedMultiValueMap<>();
-//        params.add("grant_type","authorization_code");
-//        params.add("client_id","97c2367bbc81f42c21b6abfadebd584e");
-//        params.add("redirect_uri","http://localhost/member/callback.do");
-//        params.add("code", code);
-//        params.add("client_secret", "oShirzY2M6Jv1fZRXdjuTprmDZfTE8hy");
-//
-//        //HttpHeader와 HttpBody를 하나의 오브젝트에 담기
-//        HttpEntity<MultiValueMap<String, String>> kakaoTokenRequest =
-//                new HttpEntity<>(params, headers);
-//
-//        //실제로 요청하기
-//        //Http 요청하기 - POST 방식으로 - 그리고 response 변수의 응답을 받음.
-//        ResponseEntity<String> response = rt.exchange(
-//                "https://kauth.kakao.com/oauth/token",
-//                HttpMethod.POST,
-//                kakaoTokenRequest,
-//                String.class
-//        );
-//
-//
-//        //Gson Library, JSON SIMPLE LIBRARY, OBJECT MAPPER(Check)
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        OAuthToken oauthToken =null;
-//        //Model과 다르게 되있으면 그리고 getter setter가 없으면 오류가 날 것이다.
-//        try {
-//            oauthToken = objectMapper.readValue(response.getBody(), OAuthToken.class);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }
-//		
-//		return "code";
-//		
-//	}
-//
-//	public void getProfile(OAuthToken oauthToken, MemberMapper memberMapper) throws Exception{
-//        RestTemplate rt = new RestTemplate(); //http 요청을 간단하게 해줄 수 있는 클래스
-//
-//        //HttpHeader 오브젝트 생성
-//        HttpHeaders headers = new HttpHeaders();
-//        headers.add("Authorization", "Bearer "+ oauthToken.getAccess_token());
-//        headers.add("Content-type", "application/x-www-form-urlencoded;charset=utf-8");
-//
-//
-//        HttpEntity<MultiValueMap<String, String>> kakaoProfileRequest =
-//                new HttpEntity<>(headers);
-//
-//        //실제로 요청하기
-//        //Http 요청하기 - POST 방식으로 - 그리고 response 변수의 응답을 받음.
-//        ResponseEntity<String> response = rt.exchange(
-//                "https://kapi.kakao.com/v2/user/me",
-//                HttpMethod.POST,
-//                kakaoProfileRequest,
-//                String.class
-//        );
-//
-//
-//        ObjectMapper objectMapper = new ObjectMapper();
-//        KakaoProfile profile  =null;
-//        //Model과 다르게 되있으면 그리고 getter setter가 없으면 오류가 날 것이다.
-//        try {
-//            profile = objectMapper.readValue(response.getBody(), KakaoProfile.class);
-//        } catch (JsonProcessingException e) {
-//            e.printStackTrace();
-//        }catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//
-//        //username, password, email
-//        MemberVO vo = new MemberVO();
-//        vo.setName(profile.getProperties().getNickname());
-//        vo.setEmail(profile.getKakao_account().getEmail());
-//
-//        memberMapper.save(vo);
-//        
-//
-//    }
-
 	
 	
 	//로그아웃 처리

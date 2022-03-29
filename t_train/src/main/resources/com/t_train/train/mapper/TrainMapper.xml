@@ -20,8 +20,7 @@
 	
 	<!-- // 1-1. 전체 데이터 개수 -->
 	<select id="getTotalRow" resultType="Long">
-      select count(*) from notice
-
+      select count(*) from train
       <include refid="search" />
     </select>
 	
