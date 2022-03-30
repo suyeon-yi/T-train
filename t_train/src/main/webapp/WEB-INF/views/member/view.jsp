@@ -58,7 +58,9 @@ $(function(){
 		<c:if test="${empty param.id }">
 		<!-- 개인 메뉴 -->
 			<a onclick="$('#updateDiv').show();" class="btn btn-default">정보수정</a>
+			<c:if test="${login.gradeNo != 9}">
 			<a onclick="$('#deleteDiv').show();" class="btn btn-default">회원탈퇴</a>
+			</c:if>
             	<div id="updateDiv">
 					<h3>수정에 필요한 정보입력</h3>
 				        <form action="update.do?id=${vo.id }&page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}">
