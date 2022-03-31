@@ -41,6 +41,7 @@
 			<a href="update.do?no=${vo.no }&page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default">수정</a>
 			<a href="delete.do?no=${vo.no }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default" id="deleteBtn">삭제</a>
 		</c:if>
+			<a href="https://www.letskorail.com/ebizprd/EbizPrdTicketpr21100W_pr21110.do" class="btn btn-default">코레일 바로 가기</a>
 			<a href="list.do?page=${param.page }&perPageNum=${param.perPageNum}&key=${param.key }&word=${param.word}" class="btn btn-default">리스트</a>
 		</td>
 	</tr>	
